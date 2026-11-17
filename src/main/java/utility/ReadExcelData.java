@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.*;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
+import java.io.*;
 
 public class ReadExcelData {
     public static String getParticularData(int rowval,int colval){
@@ -47,7 +47,6 @@ public class ReadExcelData {
                     String data =dataFormat.formatCellValue(cell);
                     System.out.println(data);
 
-
                 }
             }
 
@@ -56,8 +55,27 @@ public class ReadExcelData {
         }
 
     }
+    public static void writeData() {
+        try {
+            File file =new File("C:\\Users\\DELL\\OneDrive\\Desktop\\DataDriven_IPT.xlsx");
+            FileInputStream fileInput = new FileInputStream(file);
+            Workbook book=new XSSFWorkbook(fileInput);
+            book.createSheet("New Excell Sheet").createRow(0).createCell(0).setCellValue("Raju");
+            book.getSheet("New Excell Sheet").createRow(1).createCell(0).setCellValue("Ayaan");
+            FileOutputStream fileOutput =new FileOutputStream(file);
+            book.write(fileOutput);
+            book.close();
+            System.out.println("---successfully created---");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public static void main(String[] args) {
-        getAllData();
+      // getAllData();
+        writeData();
     }
 
 }
